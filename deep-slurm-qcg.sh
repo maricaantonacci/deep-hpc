@@ -26,8 +26,8 @@ local_debug=false
 ### [!! Parameters defined in TOSCA ]
 if [ "$local_debug" == "true" ]; then
 
-    SLURM_PARTITION="standard"
-    SLURM_EXTRA_OPTIONS=""
+    #SLURM_PARTITION="standard"
+    #SLURM_EXTRA_OPTIONS=""
 
     DOCKER_IMAGE="deephdc/deep-oc-benchmarks_cnn:cpu-test"
     UDOCKER_RECREATE=false
@@ -76,11 +76,11 @@ UDOCKER_CONTAINER=${UDOCKER_CONTAINER//:/-}
 export UDOCKER_CONTAINER="${UDOCKER_CONTAINER}"
 
 ## SLURM
-SLURM_NODES=1
-SLURM_TASKS_PER_NODE=8
-SLURM_LOG_DIR="${HOME}/tmp/slurm_jobs"
-SLURM_LOG_FILE="${SLURM_LOG_DIR}/${DATENOW}-${UDOCKER_CONTAINER}.log"
-SLURM_JOB2RUN="${SCRIPT_PATH}/deep-udocker-job.sh"
+#SLURM_NODES=1
+#SLURM_TASKS_PER_NODE=8
+#SLURM_LOG_DIR="${HOME}/tmp/slurm_jobs"
+#SLURM_LOG_FILE="${SLURM_LOG_DIR}/${DATENOW}-${UDOCKER_CONTAINER}.log"
+#SLURM_JOB2RUN="${SCRIPT_PATH}/deep-udocker-job.sh"
 
 ## FLAAT. IMPORTANT TO DISABLE!
 FLAAT_DISABLE="yes"
@@ -155,22 +155,23 @@ export UDOCKER_OPTIONS="${ENV_OPTIONS} ${MOUNT_OPTIONS}"
 
 ### Configure SLURM submission
 # Check if SLURM_LOG_DIR exists
-[[ ! -d "$SLURM_LOG_DIR" ]] && mkdir -p "$SLURM_LOG_DIR"
+#[[ ! -d "$SLURM_LOG_DIR" ]] && mkdir -p "$SLURM_LOG_DIR"
 
 #... UDOCKER_USE_GPU + slurm's --gres
 export UDOCKER_USE_GPU=false
 if [ $NUM_GPUS -gt 0 ]; then
     export UDOCKER_USE_GPU=true
-    SLURM_EXTRA_OPTIONS+=" --gres=gpu:${NUM_GPUS}"
+    #SLURM_EXTRA_OPTIONS+=" --gres=gpu:${NUM_GPUS}"
 fi
 
-SLURM_OPTIONS="--partition=${SLURM_PARTITION} \
---nodes=${SLURM_NODES} \
---ntasks-per-node=${SLURM_TASKS_PER_NODE} \
---job-name=${UDOCKER_CONTAINER} \
---output=${SLURM_LOG_FILE}"
+#SLURM_OPTIONS="--partition=${SLURM_PARTITION} \
+#--nodes=${SLURM_NODES} \
+#--ntasks-per-node=${SLURM_TASKS_PER_NODE} \
+#--job-name=${UDOCKER_CONTAINER} \
+#--output=${SLURM_LOG_FILE}"
 
-[[ ${#SLURM_EXTRA_OPTIONS} -ge 1 ]] && SLURM_OPTIONS+=" ${SLURM_EXTRA_OPTIONS}"
-
+#[[ ${#SLURM_EXTRA_OPTIONS} -ge 1 ]] && SLURM_OPTIONS+=" ${SLURM_EXTRA_OPTIONS}"
 # Final submission to SLURM
-sbatch ${SLURM_OPTIONS} ${SLURM_JOB2RUN}
+#sbatch ${SLURM_OPTIONS} ${SLURM_JOB2RUN}
+
+curl https://raw.githubusercontent.com/maricaantonacci/deep-hpc/master/deep-udocker-job.sh | /bin/bash
