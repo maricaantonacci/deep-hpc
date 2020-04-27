@@ -58,6 +58,8 @@ else
 fi
 echo "== [/udocker check]"
 
+export ONEDATA_MOUNT_POINT="${HOME}/onedata-"$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13 ; echo '')
+
 ##### MOUNT ONEDATA on the HOST #####
 ##### MOUNT ONEDATA on the HOST #####
 if [ ${#ONECLIENT_ACCESS_TOKEN} -gt 8 ] && [ ${#ONECLIENT_PROVIDER_HOST} -gt 8 ]; then
@@ -92,6 +94,8 @@ if [ ${#ONECLIENT_ACCESS_TOKEN} -gt 8 ] && [ ${#ONECLIENT_PROVIDER_HOST} -gt 8 ]
    ls -la ${ONEDATA_MOUNT_POINT}
    echo "== [/ONEDATA]"
 fi
+
+export UDOCKER_OPTIONS="${UDOCKER_OPTIONS} -v ${ONEDATA_MOUNT_POINT}:${ONEDATA_VOLUME}"
 ####
 ####
 echo ""
