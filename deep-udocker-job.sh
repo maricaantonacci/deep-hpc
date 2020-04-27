@@ -67,23 +67,6 @@ if [ ${#ONECLIENT_ACCESS_TOKEN} -gt 8 ] && [ ${#ONECLIENT_PROVIDER_HOST} -gt 8 ]
    echo "...ONECLIENT_PROVIDER_HOST = ${ONECLIENT_PROVIDER_HOST}"
    echo "...ONEDATA_MOUNT_POINT = ${ONEDATA_MOUNT_POINT}"
    oneclient --version
-   echo "...checking the content of ${ONEDATA_MOUNT_POINT}:"
-   ls -la ${ONEDATA_MOUNT_POINT}
-   # check if onedata_mount_point directory is empty
-   if [ "$(ls -A ${ONEDATA_MOUNT_POINT})" ]; then
-      echo "...${ONEDATA_MOUNT_POINT} is not empty! Trying to unmount..."
-      oneclient -u ${ONEDATA_MOUNT_POINT}
-      sleep 3
-      if [ "$(ls -A ${ONEDATA_MOUNT_POINT})" ]; then
-         echo "...Still not empty..."
-         ls -la ${ONEDATA_MOUNT_POINT}
-         ### DANGEROUS !!! ###
-         echo "...!!! Deleting ${ONEDATA_MOUNT_POINT} !!!..."
-         rm -rf ${ONEDATA_MOUNT_POINT}
-	 ls -la ${ONEDATA_MOUNT_POINT}
-         #exit 1
-      fi
-   fi
 
    # check if the local mount point exists
    if [ ! -d "${ONEDATA_MOUNT_POINT}" ]; then
@@ -158,6 +141,7 @@ EOF
 echo "==[/RUN]"
 
 oneclient -u ${ONEDATA_MOUNT_POINT}
+rm -rf ${ONEDATA_MOUNT_POINT} 
 
 echo "==[/END]"
 
