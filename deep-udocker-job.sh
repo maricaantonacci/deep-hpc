@@ -156,3 +156,8 @@ ${UDOCKER_RUN_COMMAND}
 EOF
 
 echo "==[/RUN]"
+
+oneclient -u ${ONEDATA_MOUNT_POINT}
+
+echo "==[/END]"
+
