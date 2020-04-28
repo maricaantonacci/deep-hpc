@@ -75,7 +75,7 @@ if [ ${#ONECLIENT_ACCESS_TOKEN} -gt 8 ] && [ ${#ONECLIENT_PROVIDER_HOST} -gt 8 ]
    fi
    oneclient ${ONEDATA_MOUNT_POINT}
    echo "...checking the content of ${ONEDATA_MOUNT_POINT}:"
-   ls -la ${ONEDATA_MOUNT_POINT}
+   ls -lRa ${ONEDATA_MOUNT_POINT}
    echo "== [/ONEDATA]"
 fi
 
