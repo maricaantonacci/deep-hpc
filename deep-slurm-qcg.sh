@@ -106,10 +106,10 @@ export ONEDATA_MOUNT_POINT="$ONEDATA_MOUNT_POINT"
 
 ## Set UDOCKER_RUN_COMMAND, ALL OTHER PARAMETERS MUST BE CORRECTLY SET BEFORE!
 # allows passing variable names and expanding them here
-udocker_run_command_expanded=$(eval echo -e "$UDOCKER_RUN_COMMAND")
-echo "UDOCKER_RUN_COMMAND: ${udocker_run_command_expanded}"
-export UDOCKER_RUN_COMMAND="${udocker_run_command_expanded}"
-
+#udocker_run_command_expanded=$(eval echo -e "$UDOCKER_RUN_COMMAND")
+#echo "UDOCKER_RUN_COMMAND: ${udocker_run_command_expanded}"
+#export UDOCKER_RUN_COMMAND="${udocker_run_command_expanded}"
+export UDOCKER_RUN_COMMAND="${UDOCKER_RUN_COMMAND}"
 ### [/Fixed Parameters set]
 
 
